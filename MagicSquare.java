@@ -5,10 +5,14 @@ import java.io.FileNotFoundException;
 
 public class MagicSquare implements MagicSquareInterface {
     // Instance variables
+    private String inputFileName;
     private int sizeMagicSquare;
     private int[][] matrixMagicSquare;
-    private String inputFileName;
     private MagicSquare testMagicSquare;
+    private int row;
+    private int col;
+    private int oldRow;
+    private int oldCol;
 
     // Constructors
     public MagicSquare(String inputFileName) {
@@ -49,6 +53,8 @@ public class MagicSquare implements MagicSquareInterface {
     public MagicSquare(String inputFileName, int sizeMagicSquare) {
         // Assign the input int paramter to the class' private variable
         this.sizeMagicSquare = sizeMagicSquare;
+        row = (sizeMagicSquare - 1);
+        col = (sizeMagicSquare / 2);
 
         // Assign the constructor int dimension to a new 2d array
         // object with the input paramter dimensions
@@ -85,6 +91,31 @@ public class MagicSquare implements MagicSquareInterface {
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
+        }
+
+        int inputSquared = sizeMagicSquare * sizeMagicSquare;
+
+        for (int i = 1; i > inputSquared; i++) {
+            matrixMagicSquare[row][col] = i; 
+
+            oldRow = row;
+            oldCol = col;
+            row += row;
+            col += col;
+
+            if (row == sizeMagicSquare) {
+                row = 0;
+            }
+            if (col == sizeMagicSquare) {
+                col = 0;
+            }
+
+            // Not sure if this works to check if existence of a value
+            if (matrixMagicSquare[row][col] == row || matrixMagicSquare[row][col] == col) {
+                row = oldRow;
+                col = oldCol;
+                col -= col;
+            }
         }
     }
 
