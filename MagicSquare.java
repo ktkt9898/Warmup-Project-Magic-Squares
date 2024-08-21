@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 
 public class MagicSquare implements MagicSquareInterface {
@@ -68,26 +69,7 @@ public class MagicSquare implements MagicSquareInterface {
             // Take the input string and convert it to type file
             File checkFileName = new File(inputFileName);
 
-            // Open a scanner on the File
-            Scanner scannerFile = new Scanner(checkFileName);
-
-            // While the file has lines in existence...
-            while (scannerFile.hasNextLine()) {
-                // Declare a line to be the next existence 
-                // of a line in the file
-                String line = scannerFile.nextLine();
-
-                // Open a scanner on the line
-                Scanner scannerLine = new Scanner(line);
-
-                // Output the contents of each line to the terminal
-                System.out.print(line);
-
-                // Close the line scanner
-                scannerLine.close();
-            }
-            // Close the file scanner
-            scannerFile.close();
+            PrintWriter writeToNewFile = new PrintWriter(checkFileName);
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
