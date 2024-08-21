@@ -54,12 +54,20 @@ public class MagicSquare implements MagicSquareInterface {
     public MagicSquare(String inputFileName, int sizeMagicSquare) {
         // Assign the input int paramter to the class' private variable
         this.sizeMagicSquare = sizeMagicSquare;
-        row = (sizeMagicSquare - 1);
-        col = (sizeMagicSquare / 2);
 
         // Assign the constructor int dimension to a new 2d array
         // object with the input paramter dimensions
         matrixMagicSquare = new int[sizeMagicSquare][sizeMagicSquare];
+
+        // Set row to be input size - 1
+        row = (sizeMagicSquare - 1);
+
+        // Set column to be input size / 2
+        col = (sizeMagicSquare / 2);
+
+        // The two integer variables old row and old column
+        int oldRow = row;
+        int oldCol = col;
 
         // Take the same input parameter and assign it to the private
         // String variable, inputFileName
@@ -67,41 +75,55 @@ public class MagicSquare implements MagicSquareInterface {
 
         try {
             // Take the input string and convert it to type file
-            File checkFileName = new File(inputFileName);
+            File checkFileName = new File(inputFileName + ".txt");
 
-            PrintWriter writeToNewFile = new PrintWriter(checkFileName);
+            FileOutputStream outputStream = new FileOutputStream(checkFileName);
+
+            PrintWriter writeToNewFile = new PrintWriter(outputStream);
+
+            // PrintWriter prints the first line to be the size of the matrix
+            writeToNewFile.println(sizeMagicSquare);
+
+            // Variable to create the input parameter squared^2
+            int inputSquared = sizeMagicSquare * sizeMagicSquare;
+
+            for (int i = 1; i > inputSquared; i++) {
+                matrixMagicSquare[row][col] = i; 
+    
+                // Increment row and column
+                row += row;
+                col += col;
+    
+                // Conditional statements
+                // If row is the same as the input parameter, assingn row to be 0
+                if (row == sizeMagicSquare) {
+                    row = 0;
+                }
+                // If col is the same as the input parameter, assing column to be 0
+                if (col == sizeMagicSquare) {
+                    col = 0;
+                }
+    
+                // Not sure if this works to check if existence of a value
+                if (matrixMagicSquare[row][col] == row || matrixMagicSquare[row][col] == col) {
+                    row = oldRow;
+                    col = oldCol;
+                    col -= col;
+                }
+            }
+
+            // Write the integer row and column 2d array to the file
+            writeToNewFile.println(matrixMagicSquare);
+
+            writeToNewFile.close();
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
-
-        int inputSquared = sizeMagicSquare * sizeMagicSquare;
-
-        for (int i = 1; i > inputSquared; i++) {
-            matrixMagicSquare[row][col] = i; 
-
-            oldRow = row;
-            oldCol = col;
-            row += row;
-            col += col;
-
-            if (row == sizeMagicSquare) {
-                row = 0;
-            }
-            if (col == sizeMagicSquare) {
-                col = 0;
-            }
-
-            // Not sure if this works to check if existence of a value
-            if (matrixMagicSquare[row][col] == row || matrixMagicSquare[row][col] == col) {
-                row = oldRow;
-                col = oldCol;
-                col -= col;
-            }
-        }
     }
 
     // Setters and getters
+    // True or false method to see if a magic square object exists
     @Override
     public boolean isMagicSquare() {
         if (testMagicSquare == null) {
@@ -112,9 +134,17 @@ public class MagicSquare implements MagicSquareInterface {
         }
     }
 
+    // Force encapsulation and return the values of an existing magic square matrix
     @Override
     public int[][] getMatrix() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMatrix'");
+        int[][] copyMatrixMagicSquare = new int[0][0];
+
+        for (int i = 0; i < matrixMagicSquare.length; i++) {
+            for (int j = 0; j < matrixMagicSquare[i].length; j++) {
+                copyMatrixMagicSquare[i][j] = matrixMagicSquare[i][j];
+            }
+        }
+
+        return copyMatrixMagicSquare;
     }
 }

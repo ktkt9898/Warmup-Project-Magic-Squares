@@ -5,6 +5,6 @@ import java.io.FileNotFoundException;
 
 public class MagicSquareDriver {
     public static void main(String[] args) {
-        MagicSquare newMagicSquare;
+        MagicSquare newMagicSquare = new MagicSquare("mytext.txt");
     }
 }
