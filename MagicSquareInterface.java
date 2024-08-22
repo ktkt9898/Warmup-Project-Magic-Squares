@@ -1,3 +1,4 @@
+
 /**
  * Methods required for a class that validates
  * or creates magic squares in files with format:

@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 
@@ -12,8 +13,6 @@ public class MagicSquare implements MagicSquareInterface {
     private MagicSquare testMagicSquare;
     private int row;
     private int col;
-    private int oldRow;
-    private int oldCol;
 
     // Constructors
     public MagicSquare(String inputFileName) {
@@ -75,7 +74,7 @@ public class MagicSquare implements MagicSquareInterface {
 
         try {
             // Take the input string and convert it to type file
-            File checkFileName = new File(inputFileName + ".txt");
+            File checkFileName = new File(inputFileName);
 
             FileOutputStream outputStream = new FileOutputStream(checkFileName);
 
