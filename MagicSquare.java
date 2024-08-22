@@ -37,7 +37,7 @@ public class MagicSquare implements MagicSquareInterface {
                 Scanner scannerLine = new Scanner(line);
 
                 // Output the contents of each line to the terminal
-                System.out.print(line);
+                System.out.println(line);
 
                 // Close the line scanner
                 scannerLine.close();
@@ -86,6 +86,7 @@ public class MagicSquare implements MagicSquareInterface {
             // Variable to create the input parameter squared^2
             int inputSquared = sizeMagicSquare * sizeMagicSquare;
 
+            // for loop does not refer to row and col values
             for (int i = 1; i > inputSquared; i++) {
                 matrixMagicSquare[row][col] = i; 
     

@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 
 public class MagicSquareDriver {
     public static void main(String[] args) {
+        System.out.println("Usage: java MagicSquareDriver");
+        
         MagicSquare newMagicSquare = new MagicSquare("valid6x6");
     }
 }
