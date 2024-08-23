@@ -65,8 +65,8 @@ public class MagicSquare implements MagicSquareInterface {
         col = (sizeMagicSquare / 2);
 
         // The two integer variables old row and old column
-        int oldRow = row;
-        int oldCol = col;
+        int oldRow;
+        int oldCol;
 
         // Take the same input parameter and assign it to the private
         // String variable, inputFileName
@@ -86,32 +86,33 @@ public class MagicSquare implements MagicSquareInterface {
             // Variable to create the input parameter squared^2
             int inputSquared = sizeMagicSquare * sizeMagicSquare;
 
-            // for loop does not refer to row and col values
-            for (int i = 1; i > inputSquared; i++) {
-                matrixMagicSquare[row][col] = i; 
+            for (int i = 1; i < inputSquared; i++) {
+                for (int j = 1; j < sizeMagicSquare; j++) {
+                    matrixMagicSquare[row][col] = i; 
     
-                // Increment row and column
-                row += row;
-                col += col;
-    
-                // Conditional statements
-                // If row is the same as the input parameter, assingn row to be 0
-                if (row == sizeMagicSquare) {
-                    row = 0;
-                }
-                // If col is the same as the input parameter, assing column to be 0
-                if (col == sizeMagicSquare) {
-                    col = 0;
-                }
-    
-                // Not sure if this works to check if existence of a value
-                if (matrixMagicSquare[row][col] == row || matrixMagicSquare[row][col] == col) {
-                    row = oldRow;
-                    col = oldCol;
-                    col -= col;
+                    // Increment row and column
+                    row += row;
+                    col += col;
+        
+                    // Conditional statements
+                    // If row is the same as the input parameter, assingn row to be 0
+                    if (row == sizeMagicSquare) {
+                        row = 0;
+                    }
+                    // If col is the same as the input parameter, assing column to be 0
+                    if (col == sizeMagicSquare) {
+                        col = 0;
+                    }
+        
+                    // Not sure if this works to check if existence of a value
+                    if (matrixMagicSquare[row][col] == row || matrixMagicSquare[row][col] == col) {
+                        oldRow = row;
+                        oldCol = col;
+                        col -= col;
+                    }
                 }
             }
-
+            
             // Write the integer row and column 2d array to the file
             writeToNewFile.println(matrixMagicSquare);
 
