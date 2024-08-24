@@ -9,6 +9,7 @@ public class MagicSquareDriver {
         
         // MagicSquare newMagicSquare = new MagicSquare("valid6x6");
 
-        MagicSquare testValue = new MagicSquare("test.txt", 3);
+        MagicSquare testValue = new MagicSquare("test.txt", 5);
+        testValue.isMagicSquare();
     }
 }

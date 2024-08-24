@@ -5,6 +5,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 
+/**
+ * @author Kyle Truschel
+ * This Class contains necessary constructors and method signatures
+ * to create a Magic Square object and validate an already existing
+ * Magic Square (from file name)
+ */
+
 public class MagicSquare implements MagicSquareInterface {
     // Instance variables
     private String inputFileName;
@@ -13,6 +20,10 @@ public class MagicSquare implements MagicSquareInterface {
     private MagicSquare testMagicSquare;
     private int row;
     private int col;
+
+    // The two integer variables old row and old column
+    private int oldRow;
+    private int oldCol;
 
     // Constructors
     public MagicSquare(String inputFileName) {
@@ -51,9 +62,14 @@ public class MagicSquare implements MagicSquareInterface {
     }
 
     public MagicSquare(String inputFileName, int sizeMagicSquare) {
+        // Take the same input parameter and assign it to the private
+        // String variable, inputFileName
+        this.inputFileName = inputFileName;
+
         // Assign the input int paramter to the class' private variable
         this.sizeMagicSquare = sizeMagicSquare;
 
+        // Magic Square algorithm
         // Assign the constructor int dimension to a new 2d array
         // object with the input paramter dimensions
         matrixMagicSquare = new int[sizeMagicSquare][sizeMagicSquare];
@@ -64,14 +80,43 @@ public class MagicSquare implements MagicSquareInterface {
         // Set column to be input size / 2
         col = (sizeMagicSquare / 2);
 
-        // The two integer variables old row and old column
-        int oldRow;
-        int oldCol;
+        // Variable to create the input parameter squared^2
+        int inputSquared = sizeMagicSquare * sizeMagicSquare;
 
-        // Take the same input parameter and assign it to the private
-        // String variable, inputFileName
-        this.inputFileName = inputFileName;
+        // Start from i = 1 up to and including the input value
+        // squared to avoid an index out of bounds error
+        for (int i = 1; i <= inputSquared; i++) {
+            matrixMagicSquare[row][col] = i; 
 
+            // Assign oldRow to row and oldCol to col
+            oldRow = row;
+            oldCol = col;
+
+            // Increment row and column
+            row++;
+            col++;
+
+            // Conditional statements
+            // If row is the same as the input parameter, assingn row to be 0
+            if (row == sizeMagicSquare) {
+                row = 0;
+            }
+            // If col is the same as the input parameter, assing column to be 0
+            if (col == sizeMagicSquare) {
+                col = 0;
+            }
+
+            // Check the value stored at the location [row][col]
+            // and if the element exists or does not equal 0 (for primitives)
+            // perform the conditional below
+            if (matrixMagicSquare[row][col] != 0) {
+                oldRow = row;
+                oldCol = col;
+                row--;
+            }
+        }
+
+        // Now write the magic square matrix/2d array to a file
         try {
             // Take the input string and convert it to type file
             File checkFileName = new File(inputFileName);
@@ -83,38 +128,14 @@ public class MagicSquare implements MagicSquareInterface {
             // PrintWriter prints the first line to be the size of the matrix
             writeToNewFile.println(sizeMagicSquare);
 
-            // Variable to create the input parameter squared^2
-            int inputSquared = sizeMagicSquare * sizeMagicSquare;
-
-            for (int i = 1; i < inputSquared; i++) {
-                for (int j = 1; j < sizeMagicSquare; j++) {
-                    matrixMagicSquare[row][col] = i; 
-    
-                    // Increment row and column
-                    row += row;
-                    col += col;
-        
-                    // Conditional statements
-                    // If row is the same as the input parameter, assingn row to be 0
-                    if (row == sizeMagicSquare) {
-                        row = 0;
-                    }
-                    // If col is the same as the input parameter, assing column to be 0
-                    if (col == sizeMagicSquare) {
-                        col = 0;
-                    }
-        
-                    // Not sure if this works to check if existence of a value
-                    if (matrixMagicSquare[row][col] == row || matrixMagicSquare[row][col] == col) {
-                        oldRow = row;
-                        oldCol = col;
-                        col -= col;
-                    }
+            // "i" represents the row, "j" represents the column
+            for (int i = 0; i < matrixMagicSquare.length; i++) {
+                for (int j = 0; j < matrixMagicSquare[i].length; j++) {
+                    writeToNewFile.write(matrixMagicSquare[i][j] + " ");
                 }
+                // Make a new line after the first line has finished
+                writeToNewFile.println();
             }
-            
-            // Write the integer row and column 2d array to the file
-            writeToNewFile.println(matrixMagicSquare);
 
             writeToNewFile.close();
         }
@@ -127,6 +148,7 @@ public class MagicSquare implements MagicSquareInterface {
     // True or false method to see if a magic square object exists
     @Override
     public boolean isMagicSquare() {
+        // testMagicSquare is an
         if (testMagicSquare == null) {
             return false;
         }
@@ -146,6 +168,8 @@ public class MagicSquare implements MagicSquareInterface {
             }
         }
 
+        // Return a brand new 2d array, that is not the same as the
+        // Class' array (to avoid breaking encapsulation)
         return copyMatrixMagicSquare;
     }
 }
