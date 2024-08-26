@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.FileWriter;
 import java.io.FileNotFoundException;
 
 /**
@@ -17,13 +18,7 @@ public class MagicSquare implements MagicSquareInterface {
     private String inputFileName;
     private int sizeMagicSquare;
     private int[][] matrixMagicSquare;
-    private MagicSquare testMagicSquare;
-    private int row;
-    private int col;
-
-    // The two integer variables old row and old column
-    private int oldRow;
-    private int oldCol;
+    private MagicSquare testMagicSquare; 
 
     // Constructors
     public MagicSquare(String inputFileName) {
@@ -74,6 +69,10 @@ public class MagicSquare implements MagicSquareInterface {
         // object with the input paramter dimensions
         matrixMagicSquare = new int[sizeMagicSquare][sizeMagicSquare];
 
+        // The two integer variables old row and old column
+        int row;
+        int col;
+
         // Set row to be input size - 1
         row = (sizeMagicSquare - 1);
 
@@ -85,6 +84,10 @@ public class MagicSquare implements MagicSquareInterface {
 
         // Start from i = 1 up to and including the input value
         // squared to avoid an index out of bounds error
+
+        int oldRow;
+        int oldCol;
+
         for (int i = 1; i <= inputSquared; i++) {
             matrixMagicSquare[row][col] = i; 
 
@@ -150,11 +153,9 @@ public class MagicSquare implements MagicSquareInterface {
     public boolean isMagicSquare() {
         // testMagicSquare is an
         if (testMagicSquare == null) {
-            System.out.println("Not a magic square.");
             return false;
         }
         else {
-            System.out.println("Is a magic square.");
             return true;
         }
     }
