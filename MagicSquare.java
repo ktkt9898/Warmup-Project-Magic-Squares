@@ -69,7 +69,7 @@ public class MagicSquare implements MagicSquareInterface {
         // Assign the input int paramter to the class' private variable
         this.sizeMagicSquare = sizeMagicSquare;
 
-        // Magic Square algorithm
+        // Magic Square Algorithm
         // Assign the constructor int dimension to a new 2d array
         // object with the input paramter dimensions
         matrixMagicSquare = new int[sizeMagicSquare][sizeMagicSquare];
@@ -140,7 +140,7 @@ public class MagicSquare implements MagicSquareInterface {
             writeToNewFile.close();
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            System.out.println("Invalid file. Please re-check spelling.");
         }
     }
 
@@ -150,9 +150,11 @@ public class MagicSquare implements MagicSquareInterface {
     public boolean isMagicSquare() {
         // testMagicSquare is an
         if (testMagicSquare == null) {
+            System.out.println("Not a magic square.");
             return false;
         }
         else {
+            System.out.println("Is a magic square.");
             return true;
         }
     }
@@ -171,5 +173,13 @@ public class MagicSquare implements MagicSquareInterface {
         // Return a brand new 2d array, that is not the same as the
         // Class' array (to avoid breaking encapsulation)
         return copyMatrixMagicSquare;
+    }
+
+    // Functioning toString, that will print to terminal the validity
+    // of the magic square
+    @Override
+    public String toString() {
+        String returnMessage = "The matrix" + "\n";
+        return returnMessage;
     }
 }

@@ -37,4 +37,5 @@ Since this was the first project after a bad CS 121 expierence and not much oppo
 
 # SOURCES:
 Kount Learning Center
+https://www.geeksforgeeks.org/check-if-a-value-is-present-in-an-array-in-java/
 
