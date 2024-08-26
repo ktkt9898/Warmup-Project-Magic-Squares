@@ -40,6 +40,11 @@ public class MagicSquare implements MagicSquareInterface {
         //       Use i, j
         //       matrixMagicSquare[i][j] = scanner.nextInt();
 
+        for (int i = 0; i < matrixMagicSquare.length; i++) {
+            for (int j = 0; j < matrixMagicSquare[i].length; j++) {
+                scannerFile.nextInt(matrixMagicSquare[i][j]);
+            }
+        }
         /*
         // While the file has lines in existence...
         while (scannerFile.hasNextLine()) {
@@ -162,7 +167,7 @@ public class MagicSquare implements MagicSquareInterface {
         int validTotal = sizeMagicSquare * ((sizeMagicSquare * sizeMagicSquare) / 2);
         int counter = 0;
         
-        // Check for horizontal
+        // Check for horizontal lines
         for (int i = 0; i < matrixMagicSquare.length; i++) {
             for (int j = 0; j < matrixMagicSquare[i].length; j++) {
                 counter += matrixMagicSquare[i][j];
@@ -173,7 +178,7 @@ public class MagicSquare implements MagicSquareInterface {
             counter = 0;
         }
 
-        // Check verticle
+        // Check vertical lines
         for (int i = 0; i < matrixMagicSquare.length; i++) {
             for (int j = 0; j < matrixMagicSquare[i].length; j++) {
                 counter += matrixMagicSquare[j][i];
