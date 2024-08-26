@@ -21,39 +21,47 @@ public class MagicSquare implements MagicSquareInterface {
     private MagicSquare testMagicSquare; 
 
     // Constructors
-    public MagicSquare(String inputFileName) {
+    public MagicSquare(String inputFileName) throws FileNotFoundException {
         // Assign the input String paramter to the Class' private
         // variable of the same name
         this.inputFileName = inputFileName;
 
-        try {
-            // Take the input string and convert it to type file
-            File checkFileName = new File(inputFileName);
+        // Take the input string and convert it to type file
+        File checkFileName = new File(inputFileName);
 
-            // Open a scanner on the File
-            Scanner scannerFile = new Scanner(checkFileName);
+        // Open a scanner on the File
+        Scanner scannerFile = new Scanner(checkFileName);
 
-            // While the file has lines in existence...
-            while (scannerFile.hasNextLine()) {
-                // Declare a line to be the next existence 
-                // of a line in the file
-                String line = scannerFile.nextLine();
+        int size = scannerFile.nextInt();
 
-                // Open a scanner on the line
-                Scanner scannerLine = new Scanner(line);
+        matrixMagicSquare = new int[size][size];
 
-                // Output the contents of each line to the terminal
-                System.out.println(line);
+        // TODO: Use 2 for loops. For i = 0 to size (see line 35), double nest
+        //       Use i, j
+        //       matrixMagicSquare[i][j] = scanner.nextInt();
 
-                // Close the line scanner
-                scannerLine.close();
-            }
-            // Close the file scanner
-            scannerFile.close();
+        /*
+        // While the file has lines in existence...
+        while (scannerFile.hasNextLine()) {
+            // Declare a line to be the next existence 
+            // of a line in the file
+            String line = scannerFile.nextLine();
+
+            // Open a scanner on the line
+            Scanner scannerLine = new Scanner(line);
+
+
+
+            // Output the contents of each line to the terminal
+            System.out.println(line);
+
+            // Close the line scanner
+            scannerLine.close();
         }
-        catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        }
+        */
+
+        // Close the file scanner
+        scannerFile.close();
     }
 
     public MagicSquare(String inputFileName, int sizeMagicSquare) {
@@ -208,16 +216,18 @@ public class MagicSquare implements MagicSquareInterface {
                 }
                 returnMessage += "\n";
             }
+            returnMessage += "is a magic square.";
             return returnMessage;
         }
         else {
-                returnMessage += "The matrix" + "\n";
-                for (int i = 0; i < matrixMagicSquare.length; i++) {
-                    for (int j = 0; j < matrixMagicSquare[i].length; j++) {
-                        returnMessage += matrixMagicSquare[i][j] + " ";
-                    }
-                    returnMessage += "\n";
+            returnMessage += "The matrix" + "\n";
+            for (int i = 0; i < matrixMagicSquare.length; i++) {
+                for (int j = 0; j < matrixMagicSquare[i].length; j++) {
+                    returnMessage += matrixMagicSquare[i][j] + " ";
                 }
+                returnMessage += "\n";
+            }
+            returnMessage += "is not a magic square.";
             return returnMessage;
         }
     }
