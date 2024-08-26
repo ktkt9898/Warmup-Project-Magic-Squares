@@ -151,13 +151,32 @@ public class MagicSquare implements MagicSquareInterface {
     // True or false method to see if a magic square object exists
     @Override
     public boolean isMagicSquare() {
-        // testMagicSquare is an
-        if (testMagicSquare == null) {
-            return false;
+        int validTotal = sizeMagicSquare * ((sizeMagicSquare * sizeMagicSquare) / 2);
+        int counter = 0;
+        
+        // Check for horizontal
+        for (int i = 0; i < matrixMagicSquare.length; i++) {
+            for (int j = 0; j < matrixMagicSquare[i].length; j++) {
+                counter += matrixMagicSquare[i][j];
+            }
+            if (counter != validTotal) {
+                return false;
+            }
+            counter = 0;
         }
-        else {
-            return true;
+
+        // Check verticle
+        for (int i = 0; i < matrixMagicSquare.length; i++) {
+            for (int j = 0; j < matrixMagicSquare[i].length; j++) {
+                counter += matrixMagicSquare[j][i];
+            }
+            if (counter != validTotal) {
+                return false;
+            }
+            counter = 0;
         }
+
+        return false;
     }
 
     // Force encapsulation and return the values of an existing magic square matrix
@@ -180,7 +199,26 @@ public class MagicSquare implements MagicSquareInterface {
     // of the magic square
     @Override
     public String toString() {
-        String returnMessage = "The matrix" + "\n";
-        return returnMessage;
+        String returnMessage = "";
+        if (isMagicSquare() == true) {
+            returnMessage += "The matrix" + "\n";
+            for (int i = 0; i < matrixMagicSquare.length; i++) {
+                for (int j = 0; i < matrixMagicSquare[i].length; j++) {
+                    returnMessage += matrixMagicSquare[i][j] + " ";
+                }
+                returnMessage += "\n";
+            }
+            return returnMessage;
+        }
+        else {
+                returnMessage += "The matrix" + "\n";
+                for (int i = 0; i < matrixMagicSquare.length; i++) {
+                    for (int j = 0; j < matrixMagicSquare[i].length; j++) {
+                        returnMessage += matrixMagicSquare[i][j] + " ";
+                    }
+                    returnMessage += "\n";
+                }
+            return returnMessage;
+        }
     }
 }
