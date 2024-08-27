@@ -149,58 +149,62 @@ public class MagicSquare implements MagicSquareInterface {
         // Formula for the size of the magic square
         int size = matrixMagicSquare.length;
         int validTotal = (size * ((size * size) + 1)) / 2;
-        int counter = 0;
+        
+        
+        int forwardDiagonalCount = 0;
+        int reverseDiagonalCount = 0;
         
         // Check for horizontal lines
         // Start with row first, as the i variable
-        for (int i = 0; i < matrixMagicSquare.length; i++) {
+        for (int i = 0; i < size; i++) {
+            int horizontalCount = 0;
             // The j variable represents the columns
-            for (int j = 0; j < matrixMagicSquare[i].length; j++) {
-                counter += matrixMagicSquare[i][j];
+            for (int j = 0; j < size; j++) {
+                horizontalCount += matrixMagicSquare[i][j];
+            }
+            if (horizontalCount != validTotal) {
+                return false;
             }
         }
-
-        if (counter != validTotal) {
-            return false;
-        }
-        counter = 0;
 
         // Check vertical lines
         // Start with row first, as the i variable
-        for (int i = 0; i < matrixMagicSquare.length; i++) {
+        for (int i = 0; i < size; i++) {
+            int verticalCount = 0;
             // The j variable represents the columns
-            for (int j = 0; j < matrixMagicSquare[i].length; j++) {
-                counter += matrixMagicSquare[j][i];
+            for (int j = 0; j < size; j++) {
+                verticalCount += matrixMagicSquare[j][i];
+            }
+            if (verticalCount != validTotal) {
+                return false;
             }
         }
 
-        if (counter != validTotal) {
-            return false;
-        }
-        counter = 0;
-
         // Forward Diagonal check
         for (int i = 0; i < matrixMagicSquare.length; i++) {
-            counter += matrixMagicSquare[i][i];
+            forwardDiagonalCount += matrixMagicSquare[i][i];
         }
-
-        if (counter != validTotal) {
+        if (forwardDiagonalCount != validTotal) {
             return false;
         }
-        counter = 0;
 
         // Reverse Diagonal check
         for (int i = 0; i < matrixMagicSquare.length; i++) {
-            counter += matrixMagicSquare[i][i - matrixMagicSquare.length];
+            reverseDiagonalCount += matrixMagicSquare[i][matrixMagicSquare.length - 1 - i];
         }
-
-        if (counter != validTotal) {
+        if (reverseDiagonalCount != validTotal) {
             return false;
         }
-        counter = 0;
 
-        // If both conditionals are passed, return true;
         return true;
+
+        // if ((horizontalCount == validTotal) && (verticalCount == validTotal) && (forwardDiagonalCount == validTotal) && (reverseDiagonalCount == validTotal)) {
+        //     // If both conditionals are passed, return true
+        //     return true;
+        // }
+        // else {
+        //     return false;
+        // }
     }
 
     // Force encapsulation and return the values of an existing magic square matrix
@@ -228,14 +232,15 @@ public class MagicSquare implements MagicSquareInterface {
 
         // First call the isMagicSquare method, which will handle the validity
         // of a magic square
-        if (isMagicSquare() == true) {
-            returnMessage += "The matrix" + "\n";
+        returnMessage += "The matrix" + "\n";
+        int[][] copyMatrixMagicSquare = getMatrix();
 
+        if (isMagicSquare()) {
             // Outer loop represents the rows to be printed
-            for (int i = 0; i < matrixMagicSquare.length; i++) {
+            for (int i = 0; i < copyMatrixMagicSquare.length; i++) {
                 // Inner loop represents the columns to be printed
-                for (int j = 0; i < matrixMagicSquare[i].length; j++) {
-                    returnMessage += matrixMagicSquare[i][j] + " ";
+                for (int j = 0; j < copyMatrixMagicSquare[i].length; j++) {
+                    returnMessage += copyMatrixMagicSquare[i][j] + " ";
                 }
                 returnMessage += "\n";
             }
@@ -243,13 +248,11 @@ public class MagicSquare implements MagicSquareInterface {
             return returnMessage;
         }
         else {
-            returnMessage += "The matrix" + "\n";
-
             // Outer loop represents the rows to be printed
-            for (int i = 0; i < matrixMagicSquare.length; i++) {
+            for (int i = 0; i < copyMatrixMagicSquare.length; i++) {
                 // Inner loop represents the columns to be printed
-                for (int j = 0; j < matrixMagicSquare[i].length; j++) {
-                    returnMessage += matrixMagicSquare[i][j] + " ";
+                for (int j = 0; j < copyMatrixMagicSquare[i].length; j++) {
+                    returnMessage += copyMatrixMagicSquare[i][j] + " ";
                 }
                 returnMessage += "\n";
             }
