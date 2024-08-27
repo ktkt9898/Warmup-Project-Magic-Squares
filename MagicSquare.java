@@ -15,67 +15,37 @@ import java.io.FileNotFoundException;
 
 public class MagicSquare implements MagicSquareInterface {
     // Instance variables
-    private String inputFileName;
-    private int sizeMagicSquare;
     private int[][] matrixMagicSquare;
-    private MagicSquare testMagicSquare; 
+    private int sizeMagicSquare;
 
     // Constructors
-    public MagicSquare(String inputFileName) throws FileNotFoundException {
-        // Assign the input String paramter to the Class' private
-        // variable of the same name
-        this.inputFileName = inputFileName;
+    public MagicSquare(String fileName) throws FileNotFoundException {
+        String inputFileName = fileName;
 
-        // Take the input string and convert it to type file
-        File checkFileName = new File(inputFileName);
+        File retrieveFile = new File(inputFileName);
 
-        // Open a scanner on the File
-        Scanner scannerFile = new Scanner(checkFileName);
+        Scanner fileScanner = new Scanner(retrieveFile);
 
-        int size = scannerFile.nextInt();
+        int startSize = fileScanner.nextInt();
 
-        matrixMagicSquare = new int[size][size];
+        matrixMagicSquare = new int[startSize][startSize];
 
-        // TODO: Use 2 for loops. For i = 0 to size (see line 35), double nest
-        //       Use i, j
-        //       matrixMagicSquare[i][j] = scanner.nextInt();
-
-        for (int i = 0; i < matrixMagicSquare.length; i++) {
-            for (int j = 0; j < matrixMagicSquare[i].length; j++) {
-                scannerFile.nextInt(matrixMagicSquare[i][j]);
+        for (int i = 0; i <= matrixMagicSquare.length; i++) {
+            for (int j = 0; j <= matrixMagicSquare[i].length; j++) {
+                fileScanner.nextInt((matrixMagicSquare[i][j]));
             }
         }
-        /*
-        // While the file has lines in existence...
-        while (scannerFile.hasNextLine()) {
-            // Declare a line to be the next existence 
-            // of a line in the file
-            String line = scannerFile.nextLine();
 
-            // Open a scanner on the line
-            Scanner scannerLine = new Scanner(line);
-
-
-
-            // Output the contents of each line to the terminal
-            System.out.println(line);
-
-            // Close the line scanner
-            scannerLine.close();
-        }
-        */
-
-        // Close the file scanner
-        scannerFile.close();
+        fileScanner.close();
     }
 
-    public MagicSquare(String inputFileName, int sizeMagicSquare) {
+    public MagicSquare(String fileName, int inputSizeMagicSquare) {
         // Take the same input parameter and assign it to the private
         // String variable, inputFileName
-        this.inputFileName = inputFileName;
+        String createFileName = fileName;
 
         // Assign the input int paramter to the class' private variable
-        this.sizeMagicSquare = sizeMagicSquare;
+        int sizeMagicSquare = inputSizeMagicSquare;
 
         // Magic Square Algorithm
         // Assign the constructor int dimension to a new 2d array
@@ -95,13 +65,13 @@ public class MagicSquare implements MagicSquareInterface {
         // Variable to create the input parameter squared^2
         int inputSquared = sizeMagicSquare * sizeMagicSquare;
 
-        // Start from i = 1 up to and including the input value
-        // squared to avoid an index out of bounds error
-
+        // Declare an oldRow and oldCol variable to be used later
         int oldRow;
         int oldCol;
 
-        for (int i = 1; i <= inputSquared; i++) {
+        // Start from i = 1 up to and including the input value
+        // squared to avoid an index out of bounds error
+        for (int i = 1; i < inputSquared; i++) {
             matrixMagicSquare[row][col] = i; 
 
             // Assign oldRow to row and oldCol to col
@@ -126,8 +96,8 @@ public class MagicSquare implements MagicSquareInterface {
             // and if the element exists or does not equal 0 (for primitives)
             // perform the conditional below
             if (matrixMagicSquare[row][col] != 0) {
-                oldRow = row;
-                oldCol = col;
+                row = oldRow;
+                col = oldCol;
                 row--;
             }
         }
@@ -135,7 +105,7 @@ public class MagicSquare implements MagicSquareInterface {
         // Now write the magic square matrix/2d array to a file
         try {
             // Take the input string and convert it to type file
-            File checkFileName = new File(inputFileName);
+            File checkFileName = new File(createFileName);
 
             FileOutputStream outputStream = new FileOutputStream(checkFileName);
 
@@ -164,7 +134,8 @@ public class MagicSquare implements MagicSquareInterface {
     // True or false method to see if a magic square object exists
     @Override
     public boolean isMagicSquare() {
-        int validTotal = sizeMagicSquare * ((sizeMagicSquare * sizeMagicSquare) / 2);
+        // Formula for the size of the magic square
+        int validTotal = sizeMagicSquare * (((sizeMagicSquare * sizeMagicSquare) + 1) / 2);
         int counter = 0;
         
         // Check for horizontal lines
@@ -174,11 +145,12 @@ public class MagicSquare implements MagicSquareInterface {
             for (int j = 0; j < matrixMagicSquare[i].length; j++) {
                 counter += matrixMagicSquare[i][j];
             }
-            if (counter != validTotal) {
-                return false;
-            }
-            counter = 0;
         }
+
+        if (counter != validTotal) {
+            return false;
+        }
+        counter = 0;
 
         // Check vertical lines
         // Start with row first, as the i variable
@@ -187,13 +159,15 @@ public class MagicSquare implements MagicSquareInterface {
             for (int j = 0; j < matrixMagicSquare[i].length; j++) {
                 counter += matrixMagicSquare[j][i];
             }
-            if (counter != validTotal) {
-                return false;
-            }
-            counter = 0;
         }
 
-        return false;
+        if (counter != validTotal) {
+            return false;
+        }
+        counter = 0;
+
+        // If both conditionals are passed, return true;
+        return true;
     }
 
     // Force encapsulation and return the values of an existing magic square matrix

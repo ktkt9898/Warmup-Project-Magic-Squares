@@ -26,43 +26,46 @@ public class MagicSquareDriver {
             return;
         }
 
+        // First terminal string value is the mode, check or create
         String mode = args[0];
+
+        // Second terminal string value is the file name for check or create
         String fileName = args[1];
 
-        // TODO: Parse command line argumets
-        //       1. Are we checking or creating? 
-        //       2. Which file
-        //       3. (maybe) How big
+        // Third terminal string value is only for create, a size integer
+        int inputSize = Integer.parseInt(args[2]);
 
         switch (mode) {
-
             case "-check":
-                
-                MagicSquare newMagicSquare = null;
+                MagicSquare checkMagicSquare = null;
+                System.out.println("Check mode!");
 
                 try {
-                    newMagicSquare = new MagicSquare(fileName);
+                    checkMagicSquare = new MagicSquare(fileName);
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
 
-                System.out.println(newMagicSquare.toString());
+                System.out.println(checkMagicSquare.toString());
                 
                 break;
            
             case "-create":
+                MagicSquare newMagicSquare = null;
                 System.out.println("Create mode!");
+
+                try {
+                    newMagicSquare = new MagicSquare(fileName, inputSize);
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
+
+                System.out.println(newMagicSquare.toString());
                 break;
         
             default:
                 break;
         }       
-        
-        // 
-
-        MagicSquare testValue = new MagicSquare("test.txt", 3);
-
-        System.out.println(testValue.toString());
     }
 }
