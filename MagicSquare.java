@@ -149,10 +149,9 @@ public class MagicSquare implements MagicSquareInterface {
         // Formula for the size of the magic square
         int size = matrixMagicSquare.length;
         int validTotal = (size * ((size * size) + 1)) / 2;
-        
-        
         int forwardDiagonalCount = 0;
         int reverseDiagonalCount = 0;
+
         
         // Check for horizontal lines
         // Start with row first, as the i variable
@@ -196,15 +195,22 @@ public class MagicSquare implements MagicSquareInterface {
             return false;
         }
 
-        return true;
+        // Check if 1, 2, 3, n... exists
+        for (int i = 1; i <= size * size; i++) {
+            boolean found = false;
+            for (int row = 0; row < size; row++) {
+                for (int col = 0; col < size; col++) {
+                    if (matrixMagicSquare[row][col] == i) {
+                        found = true;
+                    }
+                }
+            }
+            if (!found) {
+                return false;
+            }
+        }
 
-        // if ((horizontalCount == validTotal) && (verticalCount == validTotal) && (forwardDiagonalCount == validTotal) && (reverseDiagonalCount == validTotal)) {
-        //     // If both conditionals are passed, return true
-        //     return true;
-        // }
-        // else {
-        //     return false;
-        // }
+        return true;
     }
 
     // Force encapsulation and return the values of an existing magic square matrix
