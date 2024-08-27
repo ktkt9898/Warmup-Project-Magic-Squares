@@ -16,10 +16,21 @@ import java.io.FileNotFoundException;
 public class MagicSquare implements MagicSquareInterface {
     // Instance variables
     private int[][] matrixMagicSquare;
-    private int sizeMagicSquare;
 
     // Constructors
     public MagicSquare(String fileName) throws FileNotFoundException {
+        readMatrix(fileName);
+    }
+
+    public MagicSquare(String fileName, int inputSizeMagicSquare) throws IOException {
+        int sizeMagicSquare = inputSizeMagicSquare;
+        matrixMagicSquare = new int[sizeMagicSquare][sizeMagicSquare];
+        writeMatrix(matrixMagicSquare, fileName);
+    }
+
+    // Setters and getters
+    // True or false method to see if a magic square object exists
+    private int[][] readMatrix(String fileName) throws FileNotFoundException {
         String inputFileName = fileName;
 
         File retrieveFile = new File(inputFileName);
@@ -31,7 +42,8 @@ public class MagicSquare implements MagicSquareInterface {
         int startSize = Integer.parseInt(line);
 
         matrixMagicSquare = new int[startSize][startSize];
-
+        System.out.println("Output: " + startSize);
+        
         for (int i = 0; i < startSize; i++) {
             for (int j = 0; j < startSize; j++) {
                 line = fileScanner.next();
@@ -41,20 +53,20 @@ public class MagicSquare implements MagicSquareInterface {
         }
 
         fileScanner.close();
+
+        return matrixMagicSquare;
     }
 
-    public MagicSquare(String fileName, int inputSizeMagicSquare) {
+    private void writeMatrix(int[][] matrix, String fileName) throws IOException {
         // Take the same input parameter and assign it to the private
         // String variable, inputFileName
         String createFileName = fileName;
+        int[][] matrixMagicSquare = matrix;
 
         // Assign the input int paramter to the class' private variable
-        int sizeMagicSquare = inputSizeMagicSquare;
+        int sizeMagicSquare = matrixMagicSquare.length;
 
         // Magic Square Algorithm
-        // Assign the constructor int dimension to a new 2d array
-        // object with the input paramter dimensions
-        matrixMagicSquare = new int[sizeMagicSquare][sizeMagicSquare];
 
         // The two integer variables old row and old column
         int row;
@@ -75,7 +87,7 @@ public class MagicSquare implements MagicSquareInterface {
 
         // Start from i = 1 up to and including the input value
         // squared to avoid an index out of bounds error
-        for (int i = 1; i < inputSquared; i++) {
+        for (int i = 1; i <= inputSquared; i++) {
             matrixMagicSquare[row][col] = i; 
 
             // Assign oldRow to row and oldCol to col
@@ -134,12 +146,11 @@ public class MagicSquare implements MagicSquareInterface {
         }
     }
 
-    // Setters and getters
-    // True or false method to see if a magic square object exists
     @Override
     public boolean isMagicSquare() {
         // Formula for the size of the magic square
-        int validTotal = (sizeMagicSquare * ((sizeMagicSquare * sizeMagicSquare) + 1)) / 2;
+        int size = matrixMagicSquare.length;
+        int validTotal = (size * ((size * size) + 1)) / 2;
         int counter = 0;
         
         // Check for horizontal lines
@@ -169,6 +180,21 @@ public class MagicSquare implements MagicSquareInterface {
             return false;
         }
         counter = 0;
+
+        // Forward Diagonal check
+        for (int i = 0; i < matrixMagicSquare.length; i++) {
+            counter = matrixMagicSquare[i][i];
+        }
+
+        if (counter != validTotal) {
+            return false;
+        }
+        counter = 0;
+
+        // Reverse Diagonal check
+        for (int i = 0; i < matrixMagicSquare.length; i++) {
+            counter = matrixMagicSquare[matrixMagicSquare.length - i][matrixMagicSquare.length - 1];
+        }
 
         // If both conditionals are passed, return true;
         return true;

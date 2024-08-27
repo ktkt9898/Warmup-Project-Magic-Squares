@@ -32,8 +32,7 @@ public class MagicSquareDriver {
         // Second terminal string value is the file name for check or create
         String fileName = args[1];
 
-        // Third terminal string value is only for create, a size integer
-        int inputSize = Integer.parseInt(args[2]);
+
 
         switch (mode) {
             case "-check":
@@ -52,16 +51,17 @@ public class MagicSquareDriver {
                 break;
            
             case "-create":
+                // Third terminal string value is only for create, a size integer
+                int inputSize = Integer.parseInt(args[2]);
                 MagicSquare newMagicSquare = null;
                 System.out.println("Create mode!");
 
                 try {
                     newMagicSquare = new MagicSquare(fileName, inputSize);
+                    System.out.println(newMagicSquare.toString());
                 } catch (Exception e) {
                     // TODO: handle exception
                 }
-
-                System.out.println(newMagicSquare.toString());
                 break;
         
             default:
