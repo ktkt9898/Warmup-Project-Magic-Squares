@@ -26,13 +26,17 @@ public class MagicSquare implements MagicSquareInterface {
 
         Scanner fileScanner = new Scanner(retrieveFile);
 
-        int startSize = fileScanner.nextInt();
+        String line = fileScanner.nextLine();
+
+        int startSize = Integer.parseInt(line);
 
         matrixMagicSquare = new int[startSize][startSize];
 
-        for (int i = 0; i < matrixMagicSquare.length; i++) {
-            for (int j = 0; j < matrixMagicSquare[i].length; j++) {
-                fileScanner.nextInt((matrixMagicSquare[i][j]));
+        for (int i = 0; i < startSize; i++) {
+            for (int j = 0; j < startSize; j++) {
+                line = fileScanner.next();
+                int number = Integer.parseInt(line);
+                matrixMagicSquare[i][j] = number;
             }
         }
 
