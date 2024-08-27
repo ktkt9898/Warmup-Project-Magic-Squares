@@ -21,6 +21,7 @@ public class MagicSquareDriver {
 
     public static void main(String[] args) {
 
+        // Prevents out of bounds exception
         if ( args.length != 2 && args.length != 3 ) {
             printUsage();
             return;

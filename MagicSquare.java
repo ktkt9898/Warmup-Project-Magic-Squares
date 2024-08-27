@@ -42,7 +42,6 @@ public class MagicSquare implements MagicSquareInterface {
         int startSize = Integer.parseInt(line);
 
         matrixMagicSquare = new int[startSize][startSize];
-        System.out.println("Output: " + startSize);
         
         for (int i = 0; i < startSize; i++) {
             for (int j = 0; j < startSize; j++) {
@@ -60,14 +59,13 @@ public class MagicSquare implements MagicSquareInterface {
     private void writeMatrix(int[][] matrix, String fileName) throws IOException {
         // Take the same input parameter and assign it to the private
         // String variable, inputFileName
+        matrixMagicSquare = matrix;
         String createFileName = fileName;
-        int[][] matrixMagicSquare = matrix;
 
-        // Assign the input int paramter to the class' private variable
+        // Identify size from matrix length
         int sizeMagicSquare = matrixMagicSquare.length;
 
         // Magic Square Algorithm
-
         // The two integer variables old row and old column
         int row;
         int col;
@@ -183,7 +181,7 @@ public class MagicSquare implements MagicSquareInterface {
 
         // Forward Diagonal check
         for (int i = 0; i < matrixMagicSquare.length; i++) {
-            counter = matrixMagicSquare[i][i];
+            counter += matrixMagicSquare[i][i];
         }
 
         if (counter != validTotal) {
@@ -193,8 +191,13 @@ public class MagicSquare implements MagicSquareInterface {
 
         // Reverse Diagonal check
         for (int i = 0; i < matrixMagicSquare.length; i++) {
-            counter = matrixMagicSquare[matrixMagicSquare.length - i][matrixMagicSquare.length - 1];
+            counter += matrixMagicSquare[i][i - matrixMagicSquare.length];
         }
+
+        if (counter != validTotal) {
+            return false;
+        }
+        counter = 0;
 
         // If both conditionals are passed, return true;
         return true;
@@ -203,7 +206,7 @@ public class MagicSquare implements MagicSquareInterface {
     // Force encapsulation and return the values of an existing magic square matrix
     @Override
     public int[][] getMatrix() {
-        int[][] copyMatrixMagicSquare = new int[0][0];
+        int[][] copyMatrixMagicSquare = new int[matrixMagicSquare.length][matrixMagicSquare.length];
 
         for (int i = 0; i < matrixMagicSquare.length; i++) {
             for (int j = 0; j < matrixMagicSquare[i].length; j++) {
