@@ -30,8 +30,8 @@ public class MagicSquare implements MagicSquareInterface {
 
         matrixMagicSquare = new int[startSize][startSize];
 
-        for (int i = 0; i <= matrixMagicSquare.length; i++) {
-            for (int j = 0; j <= matrixMagicSquare[i].length; j++) {
+        for (int i = 0; i < matrixMagicSquare.length; i++) {
+            for (int j = 0; j < matrixMagicSquare[i].length; j++) {
                 fileScanner.nextInt((matrixMagicSquare[i][j]));
             }
         }
@@ -135,7 +135,7 @@ public class MagicSquare implements MagicSquareInterface {
     @Override
     public boolean isMagicSquare() {
         // Formula for the size of the magic square
-        int validTotal = sizeMagicSquare * (((sizeMagicSquare * sizeMagicSquare) + 1) / 2);
+        int validTotal = (sizeMagicSquare * ((sizeMagicSquare * sizeMagicSquare) + 1)) / 2;
         int counter = 0;
         
         // Check for horizontal lines
