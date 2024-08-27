@@ -168,7 +168,9 @@ public class MagicSquare implements MagicSquareInterface {
         int counter = 0;
         
         // Check for horizontal lines
+        // Start with row first, as the i variable
         for (int i = 0; i < matrixMagicSquare.length; i++) {
+            // The j variable represents the columns
             for (int j = 0; j < matrixMagicSquare[i].length; j++) {
                 counter += matrixMagicSquare[i][j];
             }
@@ -179,7 +181,9 @@ public class MagicSquare implements MagicSquareInterface {
         }
 
         // Check vertical lines
+        // Start with row first, as the i variable
         for (int i = 0; i < matrixMagicSquare.length; i++) {
+            // The j variable represents the columns
             for (int j = 0; j < matrixMagicSquare[i].length; j++) {
                 counter += matrixMagicSquare[j][i];
             }
@@ -212,10 +216,17 @@ public class MagicSquare implements MagicSquareInterface {
     // of the magic square
     @Override
     public String toString() {
+        // Primer variable, to later append string values
         String returnMessage = "";
+
+        // First call the isMagicSquare method, which will handle the validity
+        // of a magic square
         if (isMagicSquare() == true) {
             returnMessage += "The matrix" + "\n";
+
+            // Outer loop represents the rows to be printed
             for (int i = 0; i < matrixMagicSquare.length; i++) {
+                // Inner loop represents the columns to be printed
                 for (int j = 0; i < matrixMagicSquare[i].length; j++) {
                     returnMessage += matrixMagicSquare[i][j] + " ";
                 }
@@ -226,7 +237,10 @@ public class MagicSquare implements MagicSquareInterface {
         }
         else {
             returnMessage += "The matrix" + "\n";
+
+            // Outer loop represents the rows to be printed
             for (int i = 0; i < matrixMagicSquare.length; i++) {
+                // Inner loop represents the columns to be printed
                 for (int j = 0; j < matrixMagicSquare[i].length; j++) {
                     returnMessage += matrixMagicSquare[i][j] + " ";
                 }
