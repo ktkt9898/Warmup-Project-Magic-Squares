@@ -1,6 +1,3 @@
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 
 /**
@@ -33,20 +30,21 @@ public class MagicSquareDriver {
         // Second terminal string value is the file name for check or create
         String fileName = args[1];
 
-
-
+        // A switch statement is used to perform object instantiation on the two
+        // overloaded constructors
         switch (mode) {
             case "-check":
                 MagicSquare checkMagicSquare = null;
-                System.out.println("Check mode!");
+                System.out.println("Check mode selected.");
 
                 try {
                     checkMagicSquare = new MagicSquare(fileName);
                 } catch (FileNotFoundException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
 
+                // Once the file's values have been transfered to a 2d array, perform
+                // the toString method
                 System.out.println(checkMagicSquare.toString());
                 
                 break;
@@ -55,13 +53,14 @@ public class MagicSquareDriver {
                 // Third terminal string value is only for create, a size integer
                 int inputSize = Integer.parseInt(args[2]);
                 MagicSquare newMagicSquare = null;
-                System.out.println("Create mode!");
+                System.out.println("Create mode selected.");
 
                 try {
                     newMagicSquare = new MagicSquare(fileName, inputSize);
+                    // Once the magic square 2d array is made, perform the toString method
                     System.out.println(newMagicSquare.toString());
                 } catch (Exception e) {
-                    // TODO: handle exception
+                    e.printStackTrace();
                 }
                 break;
         

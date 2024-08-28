@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MagicSquareDriver",
+            "request": "launch",
+            "mainClass": "MagicSquareDriver",
+            "projectName": "Warmup-Project-Magic-Squares-17_cc0717eb"
+        },
+        {
+            "type": "java",
+            "name": "MagicSquaresTest",
+            "request": "launch",
+            "mainClass": "MagicSquaresTest",
+            "projectName": "Warmup-Project-Magic-Squares-17_cc0717eb"
+        },
+        {
+            "type": "java",
             "name": "MagicSquaresTest",
             "request": "launch",
             "mainClass": "MagicSquaresTest",

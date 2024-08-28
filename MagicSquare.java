@@ -3,11 +3,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
 
 /**
  * @author Kyle Truschel
+ * 
  * This Class contains necessary constructors and method signatures
  * to create a Magic Square object and validate an already existing
  * Magic Square (from file name)
@@ -29,7 +29,12 @@ public class MagicSquare implements MagicSquareInterface {
     }
 
     // Setters and getters
-    // True or false method to see if a magic square object exists
+    /**
+     * @param readMatrix
+     * This is a private method intended to be called on the first overloaded constructor,
+     * and peforms a file reading sequence to retrieve values within a value, and assing them
+     * as integer element values in a 2d array.
+     */
     private int[][] readMatrix(String fileName) throws FileNotFoundException {
         String inputFileName = fileName;
 
@@ -37,17 +42,22 @@ public class MagicSquare implements MagicSquareInterface {
 
         Scanner fileScanner = new Scanner(retrieveFile);
 
+        // Identify what a line is
         String line = fileScanner.nextLine();
 
+        // All files should have the dimension on the first line,
+        // So retrieve the start size from the first line
         int startSize = Integer.parseInt(line);
 
         matrixMagicSquare = new int[startSize][startSize];
         
-        for (int i = 0; i < startSize; i++) {
-            for (int j = 0; j < startSize; j++) {
+        for (int row = 0; row < startSize; row++) {
+            for (int col = 0; col < startSize; col++) {
                 line = fileScanner.next();
+
+                // Identify what a number value is
                 int number = Integer.parseInt(line);
-                matrixMagicSquare[i][j] = number;
+                matrixMagicSquare[row][col] = number;
             }
         }
 
@@ -56,6 +66,15 @@ public class MagicSquare implements MagicSquareInterface {
         return matrixMagicSquare;
     }
 
+    /**
+     * @param writeMatrix
+     * This is a private method intended to be called when the second overloaded constructor
+     * is called, the constructor that takes in an integer value and a desired file name as a
+     * string.
+     * First performs the magic square algorithm and assigns the values to a 2d array.
+     * Then, a file writing sequence is used to parse thru the values within the 2d array
+     * and write it's contents to a file.
+     */
     private void writeMatrix(int[][] matrix, String fileName) throws IOException {
         // Take the same input parameter and assign it to the private
         // String variable, inputFileName
@@ -66,7 +85,7 @@ public class MagicSquare implements MagicSquareInterface {
         int sizeMagicSquare = matrixMagicSquare.length;
 
         // Magic Square Algorithm
-        // The two integer variables old row and old column
+        // Declare two row and col integers
         int row;
         int col;
 
@@ -128,7 +147,6 @@ public class MagicSquare implements MagicSquareInterface {
             // PrintWriter prints the first line to be the size of the matrix
             writeToNewFile.println(sizeMagicSquare);
 
-            // "i" represents the row, "j" represents the column
             for (int i = 0; i < matrixMagicSquare.length; i++) {
                 for (int j = 0; j < matrixMagicSquare[i].length; j++) {
                     writeToNewFile.write(matrixMagicSquare[i][j] + " ");
@@ -144,51 +162,59 @@ public class MagicSquare implements MagicSquareInterface {
         }
     }
 
+    /**
+     * @param isMagicSquare
+     * Performs four separate test to calculate the numerical values contained
+     * in the 2d array, the magic square matrix, to sum up to the same value and compare
+     * to a valid total formula.
+     * For instance, all the rows, columns, forward diagonal lines, and reverse diagonal lines
+     * should sum up to the same value WHILE also not duplicating values (a magic square
+     * should contain values of 1, 2, 3, 4... and so on)
+     */
     @Override
     public boolean isMagicSquare() {
         // Formula for the size of the magic square
         int size = matrixMagicSquare.length;
         int validTotal = (size * ((size * size) + 1)) / 2;
-        int forwardDiagonalCount = 0;
-        int reverseDiagonalCount = 0;
-
         
-        // Check for horizontal lines
-        // Start with row first, as the i variable
-        for (int i = 0; i < size; i++) {
+        // Check for horizontal lines, rows
+        for (int row = 0; row < size; row++) {
             int horizontalCount = 0;
-            // The j variable represents the columns
-            for (int j = 0; j < size; j++) {
-                horizontalCount += matrixMagicSquare[i][j];
+            for (int col = 0; col < size; col++) {
+                horizontalCount += matrixMagicSquare[row][col];
             }
             if (horizontalCount != validTotal) {
                 return false;
             }
         }
 
-        // Check vertical lines
-        // Start with row first, as the i variable
-        for (int i = 0; i < size; i++) {
+        // Check vertical lines, columns
+        for (int row = 0; row < size; row++) {
             int verticalCount = 0;
             // The j variable represents the columns
-            for (int j = 0; j < size; j++) {
-                verticalCount += matrixMagicSquare[j][i];
+            for (int col = 0; col < size; col++) {
+                verticalCount += matrixMagicSquare[col][row];
             }
             if (verticalCount != validTotal) {
                 return false;
             }
         }
 
-        // Forward Diagonal check
+        // Check forward diagonal lines
+        int forwardDiagonalCount = 0;
         for (int i = 0; i < matrixMagicSquare.length; i++) {
+            // Formula works by incrementing based on 0,0 1,1 2,2 ...
             forwardDiagonalCount += matrixMagicSquare[i][i];
         }
         if (forwardDiagonalCount != validTotal) {
             return false;
         }
 
-        // Reverse Diagonal check
+        // Check reverse diagonal lines
+        int reverseDiagonalCount = 0;
         for (int i = 0; i < matrixMagicSquare.length; i++) {
+            // Formula works by ensuring an index out of bounds error does not occur
+            // by reducing the matrix length, such as 3, - 1, to result in 2
             reverseDiagonalCount += matrixMagicSquare[i][matrixMagicSquare.length - 1 - i];
         }
         if (reverseDiagonalCount != validTotal) {
@@ -196,6 +222,7 @@ public class MagicSquare implements MagicSquareInterface {
         }
 
         // Check if 1, 2, 3, n... exists
+        // 3 nested loop I learned at the Kount
         for (int i = 1; i <= size * size; i++) {
             boolean found = false;
             for (int row = 0; row < size; row++) {
@@ -213,14 +240,18 @@ public class MagicSquare implements MagicSquareInterface {
         return true;
     }
 
-    // Force encapsulation and return the values of an existing magic square matrix
+    /**
+     * @param getMatrix
+     * Forces encapsulation of the 2d array, the magic square matrix, by returning
+     * a copy of its element values at row and column.
+     */
     @Override
     public int[][] getMatrix() {
         int[][] copyMatrixMagicSquare = new int[matrixMagicSquare.length][matrixMagicSquare.length];
 
-        for (int i = 0; i < matrixMagicSquare.length; i++) {
-            for (int j = 0; j < matrixMagicSquare[i].length; j++) {
-                copyMatrixMagicSquare[i][j] = matrixMagicSquare[i][j];
+        for (int row = 0; row < matrixMagicSquare.length; row++) {
+            for (int col = 0; col < matrixMagicSquare[row].length; col++) {
+                copyMatrixMagicSquare[row][col] = matrixMagicSquare[row][col];
             }
         }
 
@@ -229,24 +260,30 @@ public class MagicSquare implements MagicSquareInterface {
         return copyMatrixMagicSquare;
     }
 
-    // Functioning toString, that will print to terminal the validity
-    // of the magic square
+    /**
+     * @param toString
+     * Returns readable data to the terminal by first retrieving a copy of the MagicSquare
+     * object's 2d array, its magic square matrix, then invoking the isMagicSquare method
+     * signature to verify is validity of being a magic square
+     * If valid, the method will append string values to form a neatly organized terminal
+     * message informing the user the that the Magic Square object is valid, otherwise
+     * it will neatly organize a terminal message showing its contents not to be valid.
+     */
     @Override
     public String toString() {
         // Primer variable, to later append string values
         String returnMessage = "";
-
-        // First call the isMagicSquare method, which will handle the validity
-        // of a magic square
         returnMessage += "The matrix" + "\n";
+
+        // First, retrieve a copy of the object's 2d array, the magic square matrix,
+        // to avoid breaking incapsulation.
         int[][] copyMatrixMagicSquare = getMatrix();
 
+        // Now, invoke the isMagicSquare method to test the validity of being a magic square
         if (isMagicSquare()) {
-            // Outer loop represents the rows to be printed
-            for (int i = 0; i < copyMatrixMagicSquare.length; i++) {
-                // Inner loop represents the columns to be printed
-                for (int j = 0; j < copyMatrixMagicSquare[i].length; j++) {
-                    returnMessage += copyMatrixMagicSquare[i][j] + " ";
+            for (int row = 0; row < copyMatrixMagicSquare.length; row++) {
+                for (int col = 0; col < copyMatrixMagicSquare[row].length; col++) {
+                    returnMessage += copyMatrixMagicSquare[row][col] + " ";
                 }
                 returnMessage += "\n";
             }
@@ -254,11 +291,9 @@ public class MagicSquare implements MagicSquareInterface {
             return returnMessage;
         }
         else {
-            // Outer loop represents the rows to be printed
-            for (int i = 0; i < copyMatrixMagicSquare.length; i++) {
-                // Inner loop represents the columns to be printed
-                for (int j = 0; j < copyMatrixMagicSquare[i].length; j++) {
-                    returnMessage += copyMatrixMagicSquare[i][j] + " ";
+            for (int row = 0; row < copyMatrixMagicSquare.length; row++) {
+                for (int col = 0; col < copyMatrixMagicSquare[row].length; col++) {
+                    returnMessage += copyMatrixMagicSquare[row][col] + " ";
                 }
                 returnMessage += "\n";
             }
