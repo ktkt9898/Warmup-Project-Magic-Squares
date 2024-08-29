@@ -9,6 +9,13 @@
             "name": "MagicSquareDriver",
             "request": "launch",
             "mainClass": "MagicSquareDriver",
+            "projectName": "Warmup-Project-Magic-Squares-1_279d21cc"
+        },
+        {
+            "type": "java",
+            "name": "MagicSquareDriver",
+            "request": "launch",
+            "mainClass": "MagicSquareDriver",
             "projectName": "Warmup-Project-Magic-Squares-17_cc0717eb"
         },
         {
