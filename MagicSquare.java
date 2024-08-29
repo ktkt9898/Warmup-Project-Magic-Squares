@@ -14,14 +14,30 @@ import java.io.FileNotFoundException;
  */
 
 public class MagicSquare implements MagicSquareInterface {
-    // Instance variables
+    // Instance variable(s)
     private int[][] matrixMagicSquare;
 
     // Constructors
+    /**
+     * @param MagicSquare
+     * The first overloaded constructor invokes the readMatrix method
+     * which takes in a string name, converts to a file, and attempts
+     * to parse thru the integer data within a valid file, and assign
+     * the integers to a 2d array.
+     */
     public MagicSquare(String fileName) throws FileNotFoundException {
         readMatrix(fileName);
     }
 
+    /**
+     * @param MagicSquare
+     * The second overloaded constructor first takes in a file name as a String and
+     * a desired dimension size. It creates a new 2d array object of the given
+     * dimension size. Then, it invokes the writeMatrix method, which first
+     * uses an algorithm to construct a magic square (where all values
+     * sum to the same amount) and file write the 2d array to a brand new
+     * file.
+     */
     public MagicSquare(String fileName, int inputSizeMagicSquare) throws IOException {
         int sizeMagicSquare = inputSizeMagicSquare;
         matrixMagicSquare = new int[sizeMagicSquare][sizeMagicSquare];
@@ -273,11 +289,15 @@ public class MagicSquare implements MagicSquareInterface {
     public String toString() {
         // Primer variable, to later append string values
         String returnMessage = "";
-        returnMessage += "The matrix" + "\n";
+        returnMessage += "The matrix:";
+        returnMessage += "\n";
+        returnMessage += "\n";
 
         // First, retrieve a copy of the object's 2d array, the magic square matrix,
         // to avoid breaking incapsulation.
         int[][] copyMatrixMagicSquare = getMatrix();
+
+        returnMessage += "\t";
 
         // Now, invoke the isMagicSquare method to test the validity of being a magic square
         if (isMagicSquare()) {
@@ -285,8 +305,9 @@ public class MagicSquare implements MagicSquareInterface {
                 for (int col = 0; col < copyMatrixMagicSquare[row].length; col++) {
                     returnMessage += copyMatrixMagicSquare[row][col] + " ";
                 }
-                returnMessage += "\n";
+                returnMessage += "\n" + "\t";
             }
+            returnMessage += "\n";
             returnMessage += "is a magic square.";
             return returnMessage;
         }
@@ -295,8 +316,9 @@ public class MagicSquare implements MagicSquareInterface {
                 for (int col = 0; col < copyMatrixMagicSquare[row].length; col++) {
                     returnMessage += copyMatrixMagicSquare[row][col] + " ";
                 }
-                returnMessage += "\n";
+                returnMessage += "\n" + "\t";
             }
+            returnMessage += "\n";
             returnMessage += "is not a magic square.";
             return returnMessage;
         }

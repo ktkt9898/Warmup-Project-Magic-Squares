@@ -10,11 +10,12 @@ This program constructs a magic square matrix, where each values
 in the row, column, forward diagonal lines, and
 reverse diagonal lines all sum to the same value.
 
-# INCLUDED FILES:
+# INCLUDED FILES AND FOLDERS:
+Testing Files - to be used in conjunction with the MagicSquaresTest.java file
 MagicSquare.java - source file
 MagicSquareDriver.java - source file
-MagicSquareInterface.java - interface file for methods in MagicSquare.java
-MagicSquareTester.java - tester file to ensure program runs properly
+MagicSquareInterface.java - interface file for method functionality in MagicSquare.java
+MagicSquaresTest.java - tester file to ensure program runs properly
 PLAN.md - planning and brainstorming file
 README.md - this file
 
@@ -44,6 +45,10 @@ square's dimensions
 Example:
 # java MagicSquareDriver -create MagicSquare1.txt 3
 Will create a text file called "MagicSquare1.txt" with a 3 by 3 dimension matrix.
+
+# KNOWN ISSUES
+After compiling, the terminal may output that the java runtime environment is incompatible.
+Ensure that you have the latest version of java installed to avoid this issue.
 
 # PROGRAM DESIGN AND IMPORTANT CONCEPTS:
 The MagicSquare class involves two constructors and five method signatures. 
