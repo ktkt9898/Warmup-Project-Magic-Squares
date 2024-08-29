@@ -1,7 +1,7 @@
 # ****************
 * Project 1: Magic Square Matrix Warmup
 * CS 221
-* August 28th, 2024
+* August 29th, 2024
 * Kyle Truschel
 # ****************
 
@@ -38,6 +38,15 @@ square.
 Example:
 # java MagicSquareDriver -check valid3x3
 Where the file "valid3x3" exists in the same file directory as this program.
+Print output could show:
+The matrix:
+    5
+    11	18	25	2	9
+    10	12	19	21	3
+    4	6	13	20	22
+    23	5	7	14	16
+    17	24	1	8	15
+is a magic square.
 
 For create mode, type:
 # java MagicSquareDriver -create <desired_file_name> <desired_matrix_size>
@@ -47,7 +56,11 @@ NOTE: The dimension size MUST be odd to function properly.
 
 Example:
 # java MagicSquareDriver -create MagicSquare1.txt 3
-Will create a text file called "MagicSquare1.txt" with a 3 by 3 dimension matrix.
+Will create a text file called "MagicSquare1.txt" with a 3 by 3 dimension matrix such as:
+3
+4 9 2
+3 5 7
+8 1 6
 
 # KNOWN ISSUES
 After compiling, the terminal may output that the java runtime environment is incompatible.
@@ -77,7 +90,7 @@ I had a bit of trouble getting the "isMagicSquare()" method signature working be
 
 # SOURCES:
 Kount Learning Center troubleshooting and method implementations:
-    Teaching Assistants Chase, Brady, and Jacob
+    Teaching Assistants Chase, Brady, Gabby, and Jacob
 
 Check if elements stored at 2d array position exist:
     https://www.geeksforgeeks.org/check-if-a-value-is-present-in-an-array-in-java/

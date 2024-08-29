@@ -73,6 +73,8 @@ public class MagicSquareDriver {
                 break;
         
             default:
+                // In case user enters order improperly
+                printUsage();
                 break;
         }       
     }
