@@ -12,10 +12,12 @@ reverse diagonal lines all sum to the same value.
 
 # INCLUDED FILES AND FOLDERS:
 Testing Files - to be used in conjunction with the MagicSquaresTest.java file
+    Note: All files in the folder MUST be in the same directory as the MagicSquaresTest.java
 MagicSquare.java - source file
 MagicSquareDriver.java - source file
 MagicSquareInterface.java - interface file for method functionality in MagicSquare.java
 MagicSquaresTest.java - tester file to ensure program runs properly
+    Note: Files from the "Testing FIles" folder must be in the same directory in order to function
 PLAN.md - planning and brainstorming file
 README.md - this file
 
@@ -41,6 +43,7 @@ For create mode, type:
 # java MagicSquareDriver -create <desired_file_name> <desired_matrix_size>
 Where <desired_file_name> is as implied and <desired_matrix_size> will be the
 square's dimensions
+NOTE: The dimension size MUST be odd to function properly.
 
 Example:
 # java MagicSquareDriver -create MagicSquare1.txt 3
@@ -74,7 +77,7 @@ I had a bit of trouble getting the "isMagicSquare()" method signature working be
 
 # SOURCES:
 Kount Learning Center troubleshooting and method implementations:
-    Teaching Assitants Chase, Brady, and Jacob
+    Teaching Assistants Chase, Brady, and Jacob
 
 Check if elements stored at 2d array position exist:
     https://www.geeksforgeeks.org/check-if-a-value-is-present-in-an-array-in-java/

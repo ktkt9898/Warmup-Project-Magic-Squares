@@ -12,6 +12,7 @@ public class MagicSquareDriver {
 
     public static void printUsage ( ) {
         System.out.println("Usage: java MagicSquareDriver <-check | -create> <filename> < |size>");
+        System.out.println("\tSize MUST be an odd number.");
         System.out.println("\tcheck  : Check if filename is a magic square");
         System.out.println("\tcreate : Create a magic square of dimension size");
     }
@@ -52,6 +53,13 @@ public class MagicSquareDriver {
             case "-create":
                 // Third terminal string value is only for create, a size integer
                 int inputSize = Integer.parseInt(args[2]);
+
+                // Ensure odd positive interger only
+                if (inputSize % 2 == 0) {
+                    printUsage();
+                    break;
+                }
+
                 MagicSquare newMagicSquare = null;
                 System.out.println("Create mode selected.");
 
